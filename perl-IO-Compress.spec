@@ -5,14 +5,12 @@
 
 Name:           %{?scl_prefix}perl-IO-Compress
 Version:        2.069
-Release:        368%{?dist}
+Release:        367%{?dist}
 Summary:        Read and write compressed data
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/IO-Compress/
 Source0:        http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/IO-Compress-%{version}.tar.gz
-# Avoid loading optional modules from default . (CVE-2016-1238)
-Patch0:         IO-Compress-2.069-CVE-2016-1238-avoid-loading-optional-modules-from.patch
 BuildArch:      noarch
 # Module Build
 BuildRequires:  coreutils
@@ -85,7 +83,6 @@ included with the IO-Compress distribution:
 
 %prep
 %setup -q -n IO-Compress-%{version}
-%patch0 -p1
 
 # Remove spurious exec permissions
 chmod -c -x lib/IO/Uncompress/{Adapter/Identity,RawInflate}.pm
@@ -137,9 +134,6 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/IO::Uncompress::*.3*
 
 %changelog
-* Tue Aug 02 2016 Jitka Plesnikova <jplesnik@redhat.com> - 2.069-368
-- Avoid loading optional modules from default . (CVE-2016-1238)
-
 * Mon Jul 11 2016 Petr Pisar <ppisar@redhat.com> - 2.069-367
 - SCL
 
