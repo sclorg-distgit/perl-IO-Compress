@@ -13,7 +13,7 @@
 
 Name:           %{?scl_prefix}perl-IO-Compress
 Version:        2.093
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Read and write compressed data
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-Compress
@@ -101,7 +101,7 @@ chmod -c -x lib/IO/Uncompress/{Adapter/Identity,RawInflate}.pm
 find examples -type f -exec chmod -c -x {} \;
 
 # Fix shellbangs in examples
-%{?scl:scl enable %{scl} '}perl -MConfig -pi -e %{?scl:'"}'%{?scl:"'}s|^#!/usr/local/bin/perl\b|$Config{startperl}|%{?scl:'"}'%{?scl:"'} examples/io/anycat \
+%{?scl:scl enable %{scl} '}perl -MConfig -pi -e %{?scl:'"}'%{?scl:"'}s|^#!/usr/(local/)?bin/perl\b|$Config{startperl}|%{?scl:'"}'%{?scl:"'} examples/io/anycat \
         examples/io/bzip2/* examples/io/gzip/* examples/compress-zlib/*%{?scl:'}
 
 %build
@@ -145,6 +145,9 @@ find examples -type f -exec chmod -c -x {} \;
 %{_mandir}/man3/IO::Uncompress::*.3*
 
 %changelog
+* Thu Mar 26 2020 Petr Pisar <ppisar@redhat.com> - 2.093-3
+- Normalize shebangs (bug #1817333)
+
 * Fri Dec 20 2019 Jitka Plesnikova <jplesnik@redhat.com> - 2.093-2
 - SCL
 
